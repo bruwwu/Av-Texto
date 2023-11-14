@@ -9,6 +9,7 @@ void atravesarHabitacion(int numeroHabitacion, Inventario& inventario);
 void huirDeEnemigo();
 void usarHuachicoltsen(Inventario& inventario);
 void eventoHabitacionSecreta(Inventario& inventario);
+void nuevaHabitacionConCafe(Inventario& inventario);
 void abrirHabitacionSecreta(Inventario& inventario);
 
 int main() {
@@ -48,7 +49,7 @@ void caerAlAbismo() {
 // Función para atravesar una habitación específica
 void atravesarHabitacion(int numeroHabitacion, Inventario& inventario) {
     cout << "\n----- Habitación " << numeroHabitacion << " -----\n";
-    int evento = rand() % 6;
+    int evento = rand() % 8;  // Ajusta el rango según sea necesario
 
     switch (evento) {
     case 0:
@@ -60,7 +61,7 @@ void atravesarHabitacion(int numeroHabitacion, Inventario& inventario) {
         cin >> opcion;
         if (opcion == 's' || opcion == 'S') {
             if (inventario.agregarObjeto("Llave")) {
-                // Lógica adicional si es necesario
+                
             }
         }
         else {
@@ -95,9 +96,32 @@ void atravesarHabitacion(int numeroHabitacion, Inventario& inventario) {
         }
         break;
     case 5:
-        cout << "Te encuentras con un personaje llamado Miko.\n";
+        cout << "Entras a una habitacion y ves una sombra en la lejanía.\n";
+        cout << "Se te aparece una persona la cual te dice lo siguiente\n";
         cout << "Miko: 'Y tomorrow chaquetOn'.\n";
+        cout << "Miko te ha dejado libre, puedes continuar.\n";
         break;
+
+    case 6:
+        cout << "Te encuentras en una habitación tranquila. Decides mirar alrededor.\n";
+        cout << "No parece haber nada interesante. ¿Quieres tomar un descanso? (s/n): ";
+        char opcionDescanso;
+        cin >> opcionDescanso;
+        if (opcionDescanso == 's' || opcionDescanso == 'S') {
+            cout << "Decides tomar un descanso. Te sientes revitalizado y avanzas a la siguiente habitación.\n";
+            return;  // Salir de la función sin realizar más acciones en esta habitación
+        }
+        else {
+            cout << "Decides no descansar y continúas explorando.\n";
+        }
+        break;
+
+    case 7:
+
+        nuevaHabitacionConCafe(inventario);
+
+        break;
+
     }
 
     if (inventario.tieneObjeto("Huachicoltsen")) {
@@ -142,10 +166,25 @@ void usarHuachicoltsen(Inventario& inventario) {
     }
 }
 
+void nuevaHabitacionConCafe(Inventario& inventario) {
+    cout << "Miras alrededor y encuentras una taza de café.\n";
+    cout << "¿Quieres tomar la taza de café? (s/n): ";
+    char opcion;
+    cin >> opcion;
+
+    if (opcion == 's' || opcion == 'S') {
+        cout << "Decides tomar la taza de cafe, pero tiene demasiada azucar. Escupes el cafe.\n";
+    }
+    else {
+        cout << "Decides no tomar la taza de cafe. De repente, una sombra te la avienta y recibes 4 de dmg.\n";
+        // Ajusta la lógica según sea necesario (puedes reducir la salud del jugador, por ejemplo)
+    }
+}
+
 // Función para abrir la habitación secreta
 void abrirHabitacionSecreta(Inventario& inventario) {
     char opcion;
-    cout << "Abres la puerta y descubres una habitación oculta.\n";
+    cout << "Abres la puerta y descubres una habitacion oculta.\n";
 
     // Agrega eventos adicionales para la habitación secreta
     for (int i = 0; i < 3; ++i) {  // Cambia el número de eventos según sea necesario
@@ -153,12 +192,11 @@ void abrirHabitacionSecreta(Inventario& inventario) {
     }
 
     // Ofrece a Teemo
-    cout << "En el rincón oscuro de la habitacion, encuentras a Teemo. Te ofrece hongos para pasar un buen rato.\n";
+    cout << "En el rincon oscuro de la habitacion, encuentras a Teemo. Te ofrece hongos para pasar un buen rato.\n";
     cout << "¿Aceptas los hongos de Teemo? (s/n): ";
     cin >> opcion;
     if (opcion == 's' || opcion == 'S') {
-        cout << "Agradeces a Teemo y consumes los hongos. ¡Escapas de la casa!\n";
-        // Por ejemplo, podrías terminar el juego aquí
+        cout << "Tomas los poderosos hongos de Teemo y de la nada estas fuera de la casa, gracias TeemoDeidad\n";
         exit(0);
     }
     else {
